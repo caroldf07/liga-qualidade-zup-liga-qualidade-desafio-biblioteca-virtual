@@ -7,7 +7,6 @@ import br.com.zup.edu.ligaqualidade.desafiobiblioteca.modifique.repository.Empre
 import br.com.zup.edu.ligaqualidade.desafiobiblioteca.modifique.repository.ExemplarRepository;
 import br.com.zup.edu.ligaqualidade.desafiobiblioteca.modifique.repository.UsuarioRepository;
 import br.com.zup.edu.ligaqualidade.desafiobiblioteca.modifique.service.DevolverEmprestimoService;
-import br.com.zup.edu.ligaqualidade.desafiobiblioteca.modifique.service.RegistrarEmprestimoService;
 import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosExemplar;
 import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosLivro;
 import br.com.zup.edu.ligaqualidade.desafiobiblioteca.pronto.DadosUsuario;
@@ -35,6 +34,8 @@ public class Solucao {
      * @param dataParaSerConsideradaNaExpiracao aqui é a data que deve ser utilizada para verificar expiração
      * @return
      */
+
+    //6
     public static Set<EmprestimoConcedido> executa(Set<DadosLivro> livros,
                                                    Set<DadosExemplar> exemplares,
                                                    Set<DadosUsuario> usuarios,
@@ -42,16 +43,24 @@ public class Solucao {
                                                    Set<DadosDevolucao> devolucoes,
                                                    LocalDate dataParaSerConsideradaNaExpiracao) {
 
+        //1
         UsuarioRepository usuarioRepository = new UsuarioRepository(usuarios);
+
+        //1
         ExemplarRepository exemplarRepository = new ExemplarRepository(exemplares);
+
+        //1
         EmprestimoConcedidoRepository emprestimoConcedidoRepository = new EmprestimoConcedidoRepository();
 
-        RegistrarEmprestimoService registrarEmprestimoService = new RegistrarEmprestimoService(usuarioRepository, exemplarRepository, emprestimoConcedidoRepository);
+        //1
         if (!emprestimos.isEmpty()) {
-            registrarEmprestimoService.registrar(emprestimos);
+            emprestimoConcedidoRepository.registrar(emprestimos, usuarioRepository, exemplarRepository);
         }
 
+        //1
         DevolverEmprestimoService devolverEmprestimoService = new DevolverEmprestimoService(emprestimoConcedidoRepository);
+
+        //1
         if (!devolucoes.isEmpty()) {
             devolverEmprestimoService.devolver(devolucoes);
         }

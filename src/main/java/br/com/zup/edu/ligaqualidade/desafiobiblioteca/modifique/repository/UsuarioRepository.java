@@ -14,4 +14,6 @@ public class UsuarioRepository {
     public DadosUsuario get(int idUsuario) {
         return usuarios.stream().filter(it -> it.idUsuario == idUsuario).findFirst().orElse(null);
     }
+
+
 }
